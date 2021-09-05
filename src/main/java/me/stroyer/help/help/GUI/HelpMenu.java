@@ -1,6 +1,7 @@
 package me.stroyer.help.help.GUI;
 
 import me.stroyer.help.help.GUI.RequestTP.RequestTP;
+import me.stroyer.help.help.GUI.RequestTicket.RequestTicketGUI;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -45,6 +46,7 @@ public class HelpMenu {
             Player p = (Player) e.getWhoClicked();
             RequestTP.open(p);
         }else if(itemClicked.equals(requestTicket)){
+            RequestTicketGUI.open((Player) e.getWhoClicked());
         }
     }
 }

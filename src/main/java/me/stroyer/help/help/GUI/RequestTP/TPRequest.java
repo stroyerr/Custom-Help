@@ -9,10 +9,12 @@ public class TPRequest {
     public static Boolean isOpen;
     public static World world;
     public static Location location;
+    public static Player handler;
 
     public TPRequest(Player p){
         this.p = p;
         this.location = p.getLocation();
         this.world = p.getWorld();
+        this.isOpen = true;
     }
 }

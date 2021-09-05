@@ -17,6 +17,8 @@ import java.util.List;
 
 public class RequestTP {
 
+    public static List<String> staffOnline;
+
     public static ItemStack setDescription;
     public static ItemStack confirm;
     public static ItemStack cancel;
@@ -33,7 +35,7 @@ public class RequestTP {
         cancel = NewItem.createGuiItem(Material.RED_STAINED_GLASS_PANE, ChatColor.RED + "Cancel");
 
         List<Player> players = new ArrayList<>(Bukkit.getOnlinePlayers());
-        List<String> staffOnline = new ArrayList<String>();
+        staffOnline = new ArrayList<String>();
 
         for(int i = 0; i < players.size(); i++){
             if(players.get(i).hasPermission("help.staff"))
@@ -63,13 +65,15 @@ public class RequestTP {
 
     public static void InventoryInteractEvent(InventoryClickEvent e){
         if(e.getCurrentItem().equals(confirm)){
-
+            e.getWhoClicked().closeInventory();
+            TPRequest request = new TPRequest((Player) e.getWhoClicked());
+            SendRequest.open(request);
+            Player pl = (Player) e.getWhoClicked();
+            pl.sendMessage(ChatColor.BLUE + "Request sent to " + ChatColor.YELLOW + staffOnline.size() + " staff member.");
         }else if(e.getCurrentItem().equals(cancel)){
             e.getWhoClicked().closeInventory();
         }else if(e.getCurrentItem().equals(back)){
             e.getWhoClicked().openInventory(HelpMenu.inv);
-        }else if(e.getCurrentItem().equals(confirm)){
-
         }
     }
 }
