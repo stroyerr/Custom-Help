@@ -1,5 +1,5 @@
 name: Help
-version: ${project.version}
+version: 1.1
 main: me.stroyer.help.help.Main
 api-version: 1.17
 load: STARTUP
