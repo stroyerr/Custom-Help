@@ -1,0 +1,12 @@
+name: Help
+version: ${project.version}
+main: me.stroyer.help.help.Main
+api-version: 1.17
+load: STARTUP
+authors: [ Stroyer_ ]
+description: Custom Help Plugin for LonelyMC
+commands:
+  help:
+    description: Get help from staff.
+    usage: /<command>
+    aliases: [h, Help, helps, assistance, HelpMe]
