@@ -9,6 +9,7 @@ import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
@@ -18,23 +19,29 @@ import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
+import static org.bukkit.event.block.Action.*;
+
 public class HelpItemEvent implements Listener {
     @EventHandler
     public static void onUse(PlayerInteractEvent e){
 
-        Player p = e.getPlayer();
-        for(int i = 0; i < PlayerSettings.playerSettingsList.size(); i++){
-            if(p.getUniqueId().equals(PlayerSettings.playerSettingsList.get(i).UUID)){
-                if(PlayerSettings.playerSettingsList.get(i).forceItem == false){
-                    return;
-                }
+        if(e.getItem() == null){return;}
+        if(e.getItem().equals(HelpItem.get())){
+            if(!(e.getAction().equals(LEFT_CLICK_AIR)) && (!(e.getAction().equals(RIGHT_CLICK_AIR))) && ((!e.getAction().equals(LEFT_CLICK_BLOCK))) && ((!e.getAction().equals(RIGHT_CLICK_BLOCK)))){
+                return;
+
             }
         }
-
-        if(e.getItem() == null){return;}
         if (e.getItem().equals(HelpItem.get())){
             e.setCancelled(true);
             e.getPlayer().performCommand("help");
+        }
+    }
+
+    @EventHandler
+    public static void dropItem(PlayerDropItemEvent e){
+        if(e.getItemDrop().getItemStack().equals(HelpItem.get())){
+            e.getItemDrop().remove();
         }
     }
 
