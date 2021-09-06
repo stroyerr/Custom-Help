@@ -5,6 +5,7 @@ import me.stroyer.help.help.GUI.HelpMenu;
 import me.stroyer.help.help.GUI.RequestTP.RequestTP;
 import me.stroyer.help.help.GUI.RequestTP.SendRequest;
 import me.stroyer.help.help.GUI.RequestTicket.RequestTicketGUI;
+import me.stroyer.help.help.TicketFramework.Controllers.ActionsGUI;
 import me.stroyer.help.help.TicketFramework.Controllers.AddMember;
 import me.stroyer.help.help.TicketFramework.Controllers.PlayerController;
 import me.stroyer.help.help.TicketFramework.Controllers.StaffController;
@@ -56,6 +57,11 @@ public class InventoryTake implements Listener {
         if(e.getInventory().equals(AddMember.inv)){
             e.setCancelled(true);
             AddMember.InventoryInteractEvent(e);
+        }
+
+        if(e.getInventory().equals(ActionsGUI.inv)){
+            e.setCancelled(true);
+            ActionsGUI.InventoryInteractEvent(e);
         }
 
     }

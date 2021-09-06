@@ -19,6 +19,7 @@ import org.bukkit.inventory.ItemStack;
 public class HelpItemEvent implements Listener {
     @EventHandler
     public static void onUse(PlayerInteractEvent e){
+        if(e.getItem() == null){return;}
         if (e.getItem().equals(HelpItem.get())){
             e.setCancelled(true);
             e.getPlayer().performCommand("help");

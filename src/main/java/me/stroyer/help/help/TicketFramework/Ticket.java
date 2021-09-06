@@ -41,6 +41,7 @@ public class Ticket {
         CreateTicket.activeTickets.remove(t);
         for(int i = 0; i < t.members.size(); i ++ ){
             t.members.get(i).getInventory().removeItem(getStaffControler());
+            t.members.get(i).getInventory().removeItem(getPlayerController());
         }
         t = null;
         t.playerCreated = null;

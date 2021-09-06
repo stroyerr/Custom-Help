@@ -67,5 +67,8 @@ public class RequestTicketGUI {
             Player p = (Player) e.getWhoClicked();
             CreateTicket.newTicket(p);
         }
+        if(e.getCurrentItem().equals(cancel)){
+            e.getWhoClicked().closeInventory();
+        }
     }
 }

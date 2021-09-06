@@ -53,7 +53,7 @@ public class TicketPushGUI {
         if(e.getCurrentItem().equals(accept)){
             e.getWhoClicked().closeInventory();
             Player p = (Player) e.getWhoClicked();
-            Bukkit.broadcastMessage(ChatColor.GOLD + "" + ChatColor.BOLD + "" + p.getName() + " has entered a support ticket. This player will not be able to see chat messages for the duration of the ticket.");
+            Bukkit.broadcastMessage(ChatColor.RED + p.getName() + " has entered a support ticket. This player will not be able to see chat messages for the duration of the ticket.");
             p.getInventory().setItem(0, Ticket.getStaffControler());
             if(ticket.staffHost == null){
                 ticket.staffHost = p;

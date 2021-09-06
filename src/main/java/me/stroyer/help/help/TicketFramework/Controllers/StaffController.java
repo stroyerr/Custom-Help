@@ -64,7 +64,11 @@ public class StaffController {
         }
 
         if(e.getCurrentItem().equals(actions)){
+            ActionsGUI.open(e);
+        }
 
+        if(e.getCurrentItem().equals(close)){
+            e.getWhoClicked().closeInventory();
         }
 
 

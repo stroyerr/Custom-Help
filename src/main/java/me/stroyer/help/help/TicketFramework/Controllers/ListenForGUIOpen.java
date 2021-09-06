@@ -11,6 +11,7 @@ public class ListenForGUIOpen implements Listener {
 
     @EventHandler
     public static void onUse(PlayerInteractEvent e){
+        if(e.getItem() == null){return;}
         if(e.getItem().equals(Ticket.getStaffControler())){
             e.setCancelled(true);
             StaffController.open(e);
