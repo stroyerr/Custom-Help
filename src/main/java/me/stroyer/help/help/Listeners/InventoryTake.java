@@ -5,6 +5,8 @@ import me.stroyer.help.help.GUI.HelpMenu;
 import me.stroyer.help.help.GUI.RequestTP.RequestTP;
 import me.stroyer.help.help.GUI.RequestTP.SendRequest;
 import me.stroyer.help.help.GUI.RequestTicket.RequestTicketGUI;
+import me.stroyer.help.help.TicketFramework.Controllers.AddMember;
+import me.stroyer.help.help.TicketFramework.Controllers.PlayerController;
 import me.stroyer.help.help.TicketFramework.Controllers.StaffController;
 import me.stroyer.help.help.TicketFramework.TicketPushGUI;
 import org.bukkit.entity.Player;
@@ -42,7 +44,18 @@ public class InventoryTake implements Listener {
         }
 
         if(e.getInventory().equals(StaffController.inv)){
+            e.setCancelled(true);
             StaffController.InventoryInteractEvent(e);
+        }
+
+        if(e.getInventory().equals(PlayerController.inv)){
+            e.setCancelled(true);
+            PlayerController.InventoryInteractEvent(e);
+        }
+
+        if(e.getInventory().equals(AddMember.inv)){
+            e.setCancelled(true);
+            AddMember.InventoryInteractEvent(e);
         }
 
     }

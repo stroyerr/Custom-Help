@@ -65,5 +65,9 @@ public class TicketPushGUI {
             e.getWhoClicked().closeInventory();
             }
         }
+
+        if(e.getCurrentItem().equals(ignore)){
+            e.getWhoClicked().closeInventory();
+        }
     }
 }

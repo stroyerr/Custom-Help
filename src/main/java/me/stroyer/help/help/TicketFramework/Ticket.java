@@ -49,12 +49,23 @@ public class Ticket {
     }
 
     public static void leave(Ticket t, Player p){
-        if(t.staffHost.equals(p)){
-            p.sendMessage(ChatColor.RED + "Cannot leave a ticket you are hosting. If the ticket is finished, instead close this ticket.");
-            return;
+        if(t.staffHost != null){
+            if(t.staffHost.equals(p)){
+                p.sendMessage(ChatColor.RED + "Cannot leave a ticket you are hosting. If the ticket is finished, instead close this ticket.");
+                p.closeInventory();
+                return;
+            }else{
+                t.members.remove(p);
+                p.closeInventory();
+                TicketMessage.sendMembers(p, t.members, ChatColor.RED + p.getName() + " has left the ticket.");
+            }
         }else{
-            t.members.remove(p);
-            TicketMessage.sendMembers(p, t.members, ChatColor.RED + p.getName() + " has left the ticket.");
+            if(t.members.size() == 1){
+                TicketMessage.sendMembers(p, t.members, ChatColor.RED + p.getName() + " has left the ticket.");
+                close(t);
+                p.closeInventory();
+            }
         }
+
     }
 }

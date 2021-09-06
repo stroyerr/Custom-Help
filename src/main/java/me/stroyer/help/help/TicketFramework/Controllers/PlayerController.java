@@ -56,6 +56,10 @@ public class PlayerController {
     }
 
     public static void InventoryInteractEvent(InventoryClickEvent e){
-
+        if(e.getCurrentItem().equals(leave)){
+            Ticket.leave(t, (Player) e.getWhoClicked());
+            Player p = (Player) e.getWhoClicked();
+            p.closeInventory();
+        }
     }
 }

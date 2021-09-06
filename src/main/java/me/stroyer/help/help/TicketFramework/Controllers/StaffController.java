@@ -26,6 +26,7 @@ public class StaffController {
     public static ItemStack removeMember;
     public static ItemStack leave;
     public static ItemStack actions;
+    public static Ticket t;
 
     public static void InventoryInteractEvent(InventoryClickEvent e){
         if(e.getCurrentItem().equals(close)){
@@ -39,13 +40,39 @@ public class StaffController {
                     return;
                 }
             }
+            Player p = (Player) e.getWhoClicked();
+            p.sendMessage(ChatColor.RED + "You are not the host of this ticket!");
+            e.getWhoClicked().closeInventory();
         }
-        Player p = (Player) e.getWhoClicked();
-        p.sendMessage(ChatColor.RED + "You are not the host of this ticket!");
-        e.getWhoClicked().closeInventory();
+        Player player = (Player) e.getWhoClicked();
+        for(int i = 0; i < CreateTicket.activeTickets.size(); i++){
+            if(CreateTicket.activeTickets.get(i).members.contains(player)){
+                t = CreateTicket.activeTickets.get(i);
+            }
+        }
+
+        if(e.getCurrentItem().equals(leave)){
+            Ticket.leave(t, player);
+        }
+
+        if(e.getCurrentItem().equals(addMember)){
+            AddMember.open(e);
+        }
+
+        if(e.getCurrentItem().equals(removeMember)){
+            AddMember.open(e);
+        }
+
+        if(e.getCurrentItem().equals(actions)){
+
+        }
+
+
+
     }
 
     public static void open(PlayerInteractEvent e){
+
         inv = Bukkit.createInventory(null, 54, "Ticket Controller");
         close = NewItem.createGuiItem(Material.REDSTONE_BLOCK, ChatColor.RED + "Close Ticket");
         addMember = NewItem.createGuiItem(Material.GREEN_STAINED_GLASS_PANE, ChatColor.GREEN + "Add Member to Ticket");
