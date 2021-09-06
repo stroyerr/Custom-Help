@@ -51,15 +51,17 @@ public class TicketPushGUI {
 
     public static void InventoryInteractEvent(InventoryClickEvent e){
         if(e.getCurrentItem().equals(accept)){
+            e.getWhoClicked().closeInventory();
             Player p = (Player) e.getWhoClicked();
             Bukkit.broadcastMessage(ChatColor.GOLD + "" + ChatColor.BOLD + "" + p.getName() + " has entered a support ticket. This player will not be able to see chat messages for the duration of the ticket.");
+            p.getInventory().setItem(0, Ticket.getStaffControler());
             if(ticket.staffHost == null){
                 ticket.staffHost = p;
-                TicketMessage.sendMembers(p, ticket.members, p.getName() + " has joined the ticket as the host.");
+                TicketMessage.sendMembers(p, ticket.members, p.getName() + ChatColor.RED + " has joined the ticket as the host.");
                 ticket.members.add(p);
             }else{
                 ticket.members.add(p);
-                TicketMessage.sendMembers(p, ticket.members, p.getName() + " has joined the ticket as a support member.");
+                TicketMessage.sendMembers(p, ticket.members, p.getName() + ChatColor.RED + " has joined the ticket as a support member.");
             e.getWhoClicked().closeInventory();
             }
         }

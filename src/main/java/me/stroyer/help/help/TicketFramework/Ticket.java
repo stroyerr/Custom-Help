@@ -31,4 +31,30 @@ public class Ticket {
         ItemStack staffController = NewItem.createGuiItem(Material.PAPER, ChatColor.RED + "Ticket Manager", "Use this item to manage an active ticket.");
         return staffController;
     }
+
+    public static ItemStack getPlayerController(){
+        ItemStack playerController = NewItem.createGuiItem(Material.PAPER, ChatColor.GREEN + "Ticket Options");
+        return playerController;
+    }
+
+    public static void close(Ticket t){
+        CreateTicket.activeTickets.remove(t);
+        for(int i = 0; i < t.members.size(); i ++ ){
+            t.members.get(i).getInventory().removeItem(getStaffControler());
+        }
+        t = null;
+        t.playerCreated = null;
+        t.members = new ArrayList<Player>();
+        t.staffHost = null;
+    }
+
+    public static void leave(Ticket t, Player p){
+        if(t.staffHost.equals(p)){
+            p.sendMessage(ChatColor.RED + "Cannot leave a ticket you are hosting. If the ticket is finished, instead close this ticket.");
+            return;
+        }else{
+            t.members.remove(p);
+            TicketMessage.sendMembers(p, t.members, ChatColor.RED + p.getName() + " has left the ticket.");
+        }
+    }
 }
