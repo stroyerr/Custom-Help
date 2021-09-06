@@ -1,6 +1,8 @@
 package me.stroyer.help.help.Listeners;
 
 import me.stroyer.help.help.Items.HelpItem;
+import me.stroyer.help.help.PlayerSettings;
+import me.stroyer.help.help.SaveSettings;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Item;
@@ -19,6 +21,16 @@ import org.bukkit.inventory.ItemStack;
 public class HelpItemEvent implements Listener {
     @EventHandler
     public static void onUse(PlayerInteractEvent e){
+
+        Player p = e.getPlayer();
+        for(int i = 0; i < PlayerSettings.playerSettingsList.size(); i++){
+            if(p.getUniqueId().equals(PlayerSettings.playerSettingsList.get(i).UUID)){
+                if(PlayerSettings.playerSettingsList.get(i).forceItem == false){
+                    return;
+                }
+            }
+        }
+
         if(e.getItem() == null){return;}
         if (e.getItem().equals(HelpItem.get())){
             e.setCancelled(true);
@@ -28,7 +40,17 @@ public class HelpItemEvent implements Listener {
 
     @EventHandler
     public static void onJoin(PlayerJoinEvent e){
+
         Player p = e.getPlayer();
+        for(int i = 0; i < PlayerSettings.playerSettingsList.size(); i++) {
+            if (p.getUniqueId().equals(PlayerSettings.playerSettingsList.get(i).UUID)) {
+                if (PlayerSettings.playerSettingsList.get(i).forceItem == false) {
+                    return;
+                }
+            }
+        }
+
+        p = e.getPlayer();
         Inventory inv = p.getInventory();
         if(inv.getItem(8).equals(HelpItem.get())){
             return;
@@ -50,6 +72,16 @@ public class HelpItemEvent implements Listener {
 
     @EventHandler
     public static void onInvClick(InventoryClickEvent e){
+
+        Player p = (Player) e.getWhoClicked();
+        for(int i = 0; i < PlayerSettings.playerSettingsList.size(); i++) {
+            if (p.getUniqueId().equals(PlayerSettings.playerSettingsList.get(i).UUID)) {
+                if (PlayerSettings.playerSettingsList.get(i).forceItem == false) {
+                    return;
+                }
+            }
+        }
+
         if(e.getCurrentItem().equals(HelpItem.get())){
             e.setCancelled(true);
         }
@@ -57,6 +89,14 @@ public class HelpItemEvent implements Listener {
 
     @EventHandler
     public static void onDropItem(PlayerDropItemEvent e){
+
+        Player p = e.getPlayer();
+        for(int i = 0; i < PlayerSettings.playerSettingsList.size(); i++){
+            if(p.getUniqueId().equals(PlayerSettings.playerSettingsList.get(i).UUID)){
+                if(PlayerSettings.playerSettingsList.get(i).forceItem == false){return;}
+            }
+        }
+
         ItemStack item = e.getItemDrop().getItemStack();
         if (item.equals(HelpItem.get())){
             e.setCancelled(true);
@@ -65,11 +105,27 @@ public class HelpItemEvent implements Listener {
 
     @EventHandler
     public static void onDeath(PlayerDeathEvent e){
+
+        Player p = e.getEntity();
+        for(int i = 0; i < PlayerSettings.playerSettingsList.size(); i++){
+            if(p.getUniqueId().equals(PlayerSettings.playerSettingsList.get(i).UUID)){
+                if(PlayerSettings.playerSettingsList.get(i).forceItem == false){return;}
+            }
+        }
+
         e.getEntity().getInventory().removeItem(HelpItem.get());
     }
 
     @EventHandler
     public static void onRespawn(PlayerRespawnEvent e){
+
+        Player p = e.getPlayer();
+        for(int i = 0; i < PlayerSettings.playerSettingsList.size(); i++){
+            if(p.getUniqueId().equals(PlayerSettings.playerSettingsList.get(i).UUID)){
+                if(PlayerSettings.playerSettingsList.get(i).forceItem == false){return;}
+            }
+        }
+
         e.getPlayer().getInventory().setItem(8, HelpItem.get());
     }
 }

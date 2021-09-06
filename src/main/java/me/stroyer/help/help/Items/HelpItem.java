@@ -9,7 +9,7 @@ public class HelpItem {
     public static ItemStack HelpItem;
 
     public static ItemStack get(){
-        HelpItem = NewItem.createGuiItem(Material.TRIPWIRE_HOOK, ChatColor.GOLD + "Help", ChatColor.RED + "LonelyMC Custom Help Menu");
+        HelpItem = NewItem.createGuiItem(Material.TRIPWIRE_HOOK, ChatColor.GOLD + "LonelyMC Help", ChatColor.RED + "Use /help toggle to remove this item");
         return HelpItem;
     }
 }
