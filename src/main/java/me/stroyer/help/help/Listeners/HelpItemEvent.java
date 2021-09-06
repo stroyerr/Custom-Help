@@ -47,6 +47,9 @@ public class HelpItemEvent implements Listener {
 
     @EventHandler
     public static void onJoin(PlayerJoinEvent e){
+        if(e.getPlayer().getInventory().contains(HelpItem.getLegacy())){
+            e.getPlayer().getInventory().removeItem(HelpItem.getLegacy());
+        }
 
         Player p = e.getPlayer();
         for(int i = 0; i < PlayerSettings.playerSettingsList.size(); i++) {
